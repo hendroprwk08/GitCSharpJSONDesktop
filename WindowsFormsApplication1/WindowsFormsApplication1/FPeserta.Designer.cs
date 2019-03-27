@@ -28,11 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FPeserta));
             this.tb_log = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tb_cari = new System.Windows.Forms.TextBox();
@@ -49,6 +47,9 @@
             this.label4 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -72,36 +73,6 @@
             this.button4.Text = "Find";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
-            // 
-            // button3
-            // 
-            this.button3.Image = global::WindowsFormsApplication1.Properties.Resources.Save;
-            this.button3.Location = new System.Drawing.Point(64, 173);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(29, 29);
-            this.button3.TabIndex = 23;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button2
-            // 
-            this.button2.Image = global::WindowsFormsApplication1.Properties.Resources.Delete;
-            this.button2.Location = new System.Drawing.Point(99, 173);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(29, 29);
-            this.button2.TabIndex = 24;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.Image = global::WindowsFormsApplication1.Properties.Resources.Add;
-            this.button1.Location = new System.Drawing.Point(29, 173);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(29, 29);
-            this.button1.TabIndex = 22;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // dataGridView1
             // 
@@ -137,11 +108,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 64);
+            this.label2.Location = new System.Drawing.Point(30, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(45, 13);
             this.label2.TabIndex = 14;
-            this.label2.Text = "Kampus";
+            this.label2.Text = "Campus";
             // 
             // label1
             // 
@@ -150,7 +121,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 13;
-            this.label1.Text = "Nama";
+            this.label1.Text = "Name";
             // 
             // tabPage1
             // 
@@ -256,6 +227,36 @@
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 18;
             // 
+            // button3
+            // 
+            this.button3.Image = global::WindowsFormsApplication1.Properties.Resources.Save;
+            this.button3.Location = new System.Drawing.Point(64, 173);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(29, 29);
+            this.button3.TabIndex = 23;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button2
+            // 
+            this.button2.Image = global::WindowsFormsApplication1.Properties.Resources.Delete;
+            this.button2.Location = new System.Drawing.Point(99, 173);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(29, 29);
+            this.button2.TabIndex = 24;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Image = global::WindowsFormsApplication1.Properties.Resources.Add;
+            this.button1.Location = new System.Drawing.Point(29, 173);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(29, 29);
+            this.button1.TabIndex = 22;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FPeserta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -264,6 +265,7 @@
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.tb_log);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FPeserta";

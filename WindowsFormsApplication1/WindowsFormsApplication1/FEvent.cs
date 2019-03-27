@@ -25,6 +25,7 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             title = this.Text;
+            progressBar1.Visible = false;
             log = "";
         }
 
@@ -92,7 +93,22 @@ namespace WindowsFormsApplication1
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            int i = dataGridView1.CurrentRow.Index;
 
+            try
+            {
+                id = Int32.Parse(dataGridView1.Rows[i].Cells[0].Value.ToString());
+                tb_event.Text = dataGridView1.Rows[i].Cells[1].Value.ToString();
+                tb_deskripsi.Text = dataGridView1.Rows[i].Cells[2].Value.ToString();
+                dtp_tanggal.Text = dataGridView1.Rows[i].Cells[3].Value.ToString();
+                dtp_jam.Text = dataGridView1.Rows[i].Cells[4].Value.ToString();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+            tabControl1.SelectedIndex = 0;
         }
 
         async void showGrid(string destination)
@@ -147,30 +163,6 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void FEvent_Load(object sender, EventArgs e)
-        {
-             }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int i = dataGridView1.CurrentRow.Index;
-
-            try
-            {
-                id = Int32.Parse(dataGridView1.Rows[i].Cells[0].Value.ToString());
-                tb_event.Text = dataGridView1.Rows[i].Cells[1].Value.ToString();
-                tb_deskripsi.Text = dataGridView1.Rows[i].Cells[2].Value.ToString();
-                dtp_tanggal.Text = dataGridView1.Rows[i].Cells[3].Value.ToString();
-                dtp_jam.Text = dataGridView1.Rows[i].Cells[4].Value.ToString();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            tabControl1.SelectedIndex = 0;
-        }
-
         private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (tabControl1.SelectedIndex == 1)
@@ -178,5 +170,6 @@ namespace WindowsFormsApplication1
                 showGrid("http://event-lcc.000webhostapp.com/event.php?action=4");
             }
         }
+
     }
 }

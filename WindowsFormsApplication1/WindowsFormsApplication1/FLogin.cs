@@ -49,8 +49,8 @@ namespace WindowsFormsApplication1
 
                     if (dt.Rows[0][0].ToString().Equals("0"))
                     {
-                        MessageBox.Show("Data tak ditemukan",
-                                        "Pesan",
+                        MessageBox.Show("No data found",
+                                        "Warning",
                                         MessageBoxButtons.OK,
                                         MessageBoxIcon.Warning);
                     }

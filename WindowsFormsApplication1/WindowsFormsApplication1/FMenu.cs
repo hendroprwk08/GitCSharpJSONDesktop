@@ -18,30 +18,30 @@ namespace WindowsFormsApplication1
             this.IsMdiContainer = true;
         }
 
-        private void pesertaToolStripMenuItem_Click(object sender, EventArgs e)
+        private void toolStripButton1_Click(object sender, EventArgs e)
         {
             FPeserta f = new FPeserta();
             f.MdiParent = this;
             f.Show();
         }
 
-        private void eventToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            FEvent f = new FEvent();
-            f.MdiParent = this;
-            f.Show();
-        }
-
-        private void pesertaToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void toolStripButton3_Click(object sender, EventArgs e)
         {
             FPengguna f = new FPengguna();
             f.MdiParent = this;
             f.Show();
         }
 
-        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        private void toolStripButton2_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            FEvent f = new FEvent();
+            f.MdiParent = this;
+            f.Show();
+        }
+
+        private void FMenu_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

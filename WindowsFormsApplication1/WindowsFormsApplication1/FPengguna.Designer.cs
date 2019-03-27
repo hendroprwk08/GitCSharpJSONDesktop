@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FPengguna));
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.button4 = new System.Windows.Forms.Button();
@@ -35,9 +36,6 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.bt_change = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.tb_retype = new System.Windows.Forms.TextBox();
             this.tb_phone = new System.Windows.Forms.TextBox();
             this.tb_email = new System.Windows.Forms.TextBox();
@@ -50,6 +48,9 @@
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tb_log = new System.Windows.Forms.TextBox();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage1.SuspendLayout();
@@ -71,6 +72,7 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(7, 34);
             this.dataGridView1.Name = "dataGridView1";
@@ -141,36 +143,6 @@
             this.label5.Size = new System.Drawing.Size(98, 12);
             this.label5.TabIndex = 25;
             this.label5.Text = "Retype your password";
-            // 
-            // button3
-            // 
-            this.button3.Image = global::WindowsFormsApplication1.Properties.Resources.Save;
-            this.button3.Location = new System.Drawing.Point(109, 181);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(29, 29);
-            this.button3.TabIndex = 23;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // button2
-            // 
-            this.button2.Image = global::WindowsFormsApplication1.Properties.Resources.Delete;
-            this.button2.Location = new System.Drawing.Point(144, 181);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(29, 29);
-            this.button2.TabIndex = 24;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.Image = global::WindowsFormsApplication1.Properties.Resources.Add;
-            this.button1.Location = new System.Drawing.Point(74, 181);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(29, 29);
-            this.button1.TabIndex = 22;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // tb_retype
             // 
@@ -273,6 +245,36 @@
             this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
             this.progressBar1.TabIndex = 17;
             // 
+            // button3
+            // 
+            this.button3.Image = global::WindowsFormsApplication1.Properties.Resources.Save;
+            this.button3.Location = new System.Drawing.Point(109, 181);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(29, 29);
+            this.button3.TabIndex = 23;
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button2
+            // 
+            this.button2.Image = global::WindowsFormsApplication1.Properties.Resources.Delete;
+            this.button2.Location = new System.Drawing.Point(144, 181);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(29, 29);
+            this.button2.TabIndex = 24;
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // button1
+            // 
+            this.button1.Image = global::WindowsFormsApplication1.Properties.Resources.Add;
+            this.button1.Location = new System.Drawing.Point(74, 181);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(29, 29);
+            this.button1.TabIndex = 22;
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // FPengguna
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -282,6 +284,7 @@
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.tb_log);
             this.Controls.Add(this.tabControl1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FPengguna";
