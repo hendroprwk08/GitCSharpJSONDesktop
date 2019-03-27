@@ -169,5 +169,10 @@ namespace WindowsFormsApplication1
 
             button1_Click(null, null);
         }
+
+        private void FPeserta_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
