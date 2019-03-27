@@ -61,7 +61,6 @@ namespace WindowsFormsApplication1
             }
 
             button1_Click(null, null);
-            this.Text = title; 
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -88,9 +87,7 @@ namespace WindowsFormsApplication1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            this.Text = "Finding: " + tb_cari.Text;
             showGrid("http://event-lcc.000webhostapp.com/event.php?action=5&find=" + tb_cari.Text);
-            this.Text = title;
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -101,6 +98,7 @@ namespace WindowsFormsApplication1
         async void showGrid(string destination)
         {
             dt_event = new DataTable();
+            progressBar1.Visible = true;
             tb_log.Text = DateTime.Now.ToString() + " - " + destination;
 
             try
@@ -108,23 +106,27 @@ namespace WindowsFormsApplication1
                 using (var httpClient = new HttpClient())
                 {
                     var json = await httpClient.GetStringAsync(destination);
-                    tb_log.Text = DateTime.Now.ToString()  + " - " + json; 
+                    tb_log.Text = DateTime.Now.ToString() + " - " + json;
 
                     JObject data = JObject.Parse(json);
                     String values = data["result"].ToString();
                     dt_event = (DataTable)JsonConvert.DeserializeObject(values, (typeof(DataTable)));
                 }
-
                 dataGridView1.DataSource = dt_event;
             }
-            catch (Exception ex)
+            catch (HttpRequestException ex)
             {
-                Console.WriteLine(ex.ToString());
+                tb_log.Text = DateTime.Now.ToString() + " - Error: " + Environment.NewLine + ex.ToString();
+            }
+            finally
+            {
+                progressBar1.Visible = false;
             }
         }
 
         async void post(string destination)
         {
+            progressBar1.Visible = true;
             tb_log.Text = DateTime.Now.ToString() + " - " + destination;
 
             using (var httpClient = new HttpClient())
@@ -132,21 +134,22 @@ namespace WindowsFormsApplication1
                 try
                 {
                     var json = await httpClient.GetStringAsync(destination);
-                    tb_log.Text = DateTime.Now.ToString() + " - " + json; 
+                    tb_log.Text = DateTime.Now.ToString() + " - " + json;
                 }
-                catch (Exception ex)
+                catch (HttpRequestException ex)
                 {
-                    MessageBox.Show(ex.ToString());
-                }                   
+                    tb_log.Text = DateTime.Now.ToString() + " - Error: " + Environment.NewLine + ex.ToString();
+                }
+                finally
+                {
+                    progressBar1.Visible = false;
+                }
             }
         }
 
         private void FEvent_Load(object sender, EventArgs e)
         {
-            this.Text = "Loading...";
-            showGrid("http://event-lcc.000webhostapp.com/event.php?action=4");
-            this.Text = title;
-        }
+             }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -172,7 +175,7 @@ namespace WindowsFormsApplication1
         {
             if (tabControl1.SelectedIndex == 1)
             {
-                FEvent_Load(null, null);
+                showGrid("http://event-lcc.000webhostapp.com/event.php?action=4");
             }
         }
     }

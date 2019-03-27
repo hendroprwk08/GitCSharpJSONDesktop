@@ -46,6 +46,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.tb_cari = new System.Windows.Forms.TextBox();
             this.tb_log = new System.Windows.Forms.TextBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -56,7 +57,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(10, 7);
+            this.tabControl1.Location = new System.Drawing.Point(10, 12);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(390, 247);
@@ -105,31 +106,31 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(79, 181);
+            this.button3.Image = global::WindowsFormsApplication1.Properties.Resources.Save;
+            this.button3.Location = new System.Drawing.Point(58, 181);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(50, 23);
+            this.button3.Size = new System.Drawing.Size(29, 29);
             this.button3.TabIndex = 23;
-            this.button3.Text = "Save";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(300, 181);
+            this.button2.Image = global::WindowsFormsApplication1.Properties.Resources.Delete;
+            this.button2.Location = new System.Drawing.Point(93, 181);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(64, 23);
+            this.button2.Size = new System.Drawing.Size(29, 29);
             this.button2.TabIndex = 24;
-            this.button2.Text = "Delete";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
+            this.button1.Image = global::WindowsFormsApplication1.Properties.Resources.Add;
             this.button1.Location = new System.Drawing.Point(23, 181);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 23);
+            this.button1.Size = new System.Drawing.Size(29, 29);
             this.button1.TabIndex = 22;
-            this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -229,17 +230,26 @@
             // 
             // tb_log
             // 
-            this.tb_log.Location = new System.Drawing.Point(13, 261);
+            this.tb_log.Location = new System.Drawing.Point(13, 266);
             this.tb_log.Multiline = true;
             this.tb_log.Name = "tb_log";
             this.tb_log.Size = new System.Drawing.Size(382, 55);
             this.tb_log.TabIndex = 15;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(1, -1);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(409, 6);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar1.TabIndex = 18;
+            // 
             // FEvent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(407, 328);
+            this.ClientSize = new System.Drawing.Size(407, 333);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.tb_log);
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
@@ -247,7 +257,6 @@
             this.Name = "FEvent";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Event";
-            this.Load += new System.EventHandler(this.FEvent_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -279,5 +288,6 @@
         private System.Windows.Forms.DateTimePicker dtp_jam;
         private System.Windows.Forms.TextBox tb_deskripsi;
         private System.Windows.Forms.TextBox tb_log;
+        private System.Windows.Forms.ProgressBar progressBar1;
     }
 }

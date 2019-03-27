@@ -49,6 +49,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tb_log = new System.Windows.Forms.TextBox();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage1.SuspendLayout();
@@ -143,31 +144,31 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(130, 181);
+            this.button3.Image = global::WindowsFormsApplication1.Properties.Resources.Save;
+            this.button3.Location = new System.Drawing.Point(109, 181);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(50, 23);
+            this.button3.Size = new System.Drawing.Size(29, 29);
             this.button3.TabIndex = 23;
-            this.button3.Text = "Save";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(227, 181);
+            this.button2.Image = global::WindowsFormsApplication1.Properties.Resources.Delete;
+            this.button2.Location = new System.Drawing.Point(144, 181);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(64, 23);
+            this.button2.Size = new System.Drawing.Size(29, 29);
             this.button2.TabIndex = 24;
-            this.button2.Text = "Delete";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
+            this.button1.Image = global::WindowsFormsApplication1.Properties.Resources.Add;
             this.button1.Location = new System.Drawing.Point(74, 181);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 23);
+            this.button1.Size = new System.Drawing.Size(29, 29);
             this.button1.TabIndex = 22;
-            this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -175,6 +176,7 @@
             // 
             this.tb_retype.Location = new System.Drawing.Point(141, 76);
             this.tb_retype.Name = "tb_retype";
+            this.tb_retype.PasswordChar = '*';
             this.tb_retype.Size = new System.Drawing.Size(150, 20);
             this.tb_retype.TabIndex = 19;
             // 
@@ -196,6 +198,7 @@
             // 
             this.tb_password.Location = new System.Drawing.Point(141, 50);
             this.tb_password.Name = "tb_password";
+            this.tb_password.PasswordChar = '*';
             this.tb_password.Size = new System.Drawing.Size(150, 20);
             this.tb_password.TabIndex = 18;
             // 
@@ -262,12 +265,21 @@
             this.tb_log.Size = new System.Drawing.Size(382, 55);
             this.tb_log.TabIndex = 16;
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(-4, -1);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(409, 6);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar1.TabIndex = 17;
+            // 
             // FPengguna
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(403, 328);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.tb_log);
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
@@ -275,7 +287,6 @@
             this.Name = "FPengguna";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "User Access";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -310,6 +321,7 @@
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.Button bt_change;
         private System.Windows.Forms.TextBox tb_log;
+        private System.Windows.Forms.ProgressBar progressBar1;
 
 
 

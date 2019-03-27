@@ -30,22 +30,25 @@
         {
             this.tb_log = new System.Windows.Forms.TextBox();
             this.button4 = new System.Windows.Forms.Button();
-            this.dtp_jam = new System.Windows.Forms.DateTimePicker();
-            this.dtp_tanggal = new System.Windows.Forms.DateTimePicker();
             this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.tb_deskripsi = new System.Windows.Forms.TextBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tb_cari = new System.Windows.Forms.TextBox();
-            this.tb_event = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tb_email = new System.Windows.Forms.TextBox();
+            this.tb_phone = new System.Windows.Forms.TextBox();
+            this.tb_wa = new System.Windows.Forms.TextBox();
+            this.tb_kampus = new System.Windows.Forms.TextBox();
+            this.tb_nama = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabPage2.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -70,62 +73,35 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // dtp_jam
-            // 
-            this.dtp_jam.CustomFormat = "HH:mm";
-            this.dtp_jam.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtp_jam.Location = new System.Drawing.Point(316, 147);
-            this.dtp_jam.Name = "dtp_jam";
-            this.dtp_jam.ShowUpDown = true;
-            this.dtp_jam.Size = new System.Drawing.Size(54, 20);
-            this.dtp_jam.TabIndex = 27;
-            // 
-            // dtp_tanggal
-            // 
-            this.dtp_tanggal.CustomFormat = "yyyy-MM-dd";
-            this.dtp_tanggal.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtp_tanggal.Location = new System.Drawing.Point(153, 147);
-            this.dtp_tanggal.Name = "dtp_tanggal";
-            this.dtp_tanggal.Size = new System.Drawing.Size(80, 20);
-            this.dtp_tanggal.TabIndex = 25;
-            // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(85, 181);
+            this.button3.Image = global::WindowsFormsApplication1.Properties.Resources.Save;
+            this.button3.Location = new System.Drawing.Point(64, 173);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(50, 23);
+            this.button3.Size = new System.Drawing.Size(29, 29);
             this.button3.TabIndex = 23;
-            this.button3.Text = "Save";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(306, 181);
+            this.button2.Image = global::WindowsFormsApplication1.Properties.Resources.Delete;
+            this.button2.Location = new System.Drawing.Point(99, 173);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(64, 23);
+            this.button2.Size = new System.Drawing.Size(29, 29);
             this.button2.TabIndex = 24;
-            this.button2.Text = "Delete";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(29, 181);
+            this.button1.Image = global::WindowsFormsApplication1.Properties.Resources.Add;
+            this.button1.Location = new System.Drawing.Point(29, 173);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(50, 23);
+            this.button1.Size = new System.Drawing.Size(29, 29);
             this.button1.TabIndex = 22;
-            this.button1.Text = "Add";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // tb_deskripsi
-            // 
-            this.tb_deskripsi.Location = new System.Drawing.Point(100, 51);
-            this.tb_deskripsi.Multiline = true;
-            this.tb_deskripsi.Name = "tb_deskripsi";
-            this.tb_deskripsi.Size = new System.Drawing.Size(270, 92);
-            this.tb_deskripsi.TabIndex = 18;
             // 
             // dataGridView1
             // 
@@ -134,8 +110,9 @@
             this.dataGridView1.Location = new System.Drawing.Point(13, 34);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(369, 181);
+            this.dataGridView1.Size = new System.Drawing.Size(357, 181);
             this.dataGridView1.TabIndex = 27;
+            this.dataGridView1.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellDoubleClick);
             // 
             // tabPage2
             // 
@@ -157,52 +134,37 @@
             this.tb_cari.Size = new System.Drawing.Size(150, 20);
             this.tb_cari.TabIndex = 25;
             // 
-            // tb_event
-            // 
-            this.tb_event.Location = new System.Drawing.Point(100, 25);
-            this.tb_event.MaxLength = 1000;
-            this.tb_event.Name = "tb_event";
-            this.tb_event.Size = new System.Drawing.Size(270, 20);
-            this.tb_event.TabIndex = 17;
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(284, 151);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(26, 13);
-            this.label4.TabIndex = 16;
-            this.label4.Text = "Jam";
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(30, 54);
+            this.label2.Location = new System.Drawing.Point(30, 64);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
+            this.label2.Size = new System.Drawing.Size(45, 13);
             this.label2.TabIndex = 14;
-            this.label2.Text = "Deskripsi";
+            this.label2.Text = "Kampus";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(30, 28);
+            this.label1.Location = new System.Drawing.Point(30, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 13;
-            this.label1.Text = "Event";
+            this.label1.Text = "Nama";
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.dtp_jam);
-            this.tabPage1.Controls.Add(this.dtp_tanggal);
+            this.tabPage1.Controls.Add(this.tb_email);
+            this.tabPage1.Controls.Add(this.tb_phone);
+            this.tabPage1.Controls.Add(this.tb_wa);
+            this.tabPage1.Controls.Add(this.tb_kampus);
+            this.tabPage1.Controls.Add(this.tb_nama);
+            this.tabPage1.Controls.Add(this.label5);
+            this.tabPage1.Controls.Add(this.label3);
+            this.tabPage1.Controls.Add(this.label4);
             this.tabPage1.Controls.Add(this.button3);
             this.tabPage1.Controls.Add(this.button2);
             this.tabPage1.Controls.Add(this.button1);
-            this.tabPage1.Controls.Add(this.tb_deskripsi);
-            this.tabPage1.Controls.Add(this.tb_event);
-            this.tabPage1.Controls.Add(this.label4);
-            this.tabPage1.Controls.Add(this.label3);
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.label1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
@@ -213,14 +175,67 @@
             this.tabPage1.Text = "Input";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // tb_email
+            // 
+            this.tb_email.Location = new System.Drawing.Point(96, 116);
+            this.tb_email.Name = "tb_email";
+            this.tb_email.Size = new System.Drawing.Size(244, 20);
+            this.tb_email.TabIndex = 32;
+            // 
+            // tb_phone
+            // 
+            this.tb_phone.Location = new System.Drawing.Point(254, 90);
+            this.tb_phone.Name = "tb_phone";
+            this.tb_phone.Size = new System.Drawing.Size(86, 20);
+            this.tb_phone.TabIndex = 31;
+            // 
+            // tb_wa
+            // 
+            this.tb_wa.Location = new System.Drawing.Point(96, 90);
+            this.tb_wa.Name = "tb_wa";
+            this.tb_wa.Size = new System.Drawing.Size(93, 20);
+            this.tb_wa.TabIndex = 30;
+            // 
+            // tb_kampus
+            // 
+            this.tb_kampus.Location = new System.Drawing.Point(96, 64);
+            this.tb_kampus.Name = "tb_kampus";
+            this.tb_kampus.Size = new System.Drawing.Size(244, 20);
+            this.tb_kampus.TabIndex = 29;
+            // 
+            // tb_nama
+            // 
+            this.tb_nama.Location = new System.Drawing.Point(96, 38);
+            this.tb_nama.Name = "tb_nama";
+            this.tb_nama.Size = new System.Drawing.Size(244, 20);
+            this.tb_nama.TabIndex = 28;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(30, 119);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(32, 13);
+            this.label5.TabIndex = 27;
+            this.label5.Text = "Email";
+            // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(101, 151);
+            this.label3.Location = new System.Drawing.Point(210, 93);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 13);
-            this.label3.TabIndex = 15;
-            this.label3.Text = "Tanggal";
+            this.label3.Size = new System.Drawing.Size(38, 13);
+            this.label3.TabIndex = 26;
+            this.label3.Text = "Phone";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(30, 89);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(56, 13);
+            this.label4.TabIndex = 25;
+            this.label4.Text = "Whatsapp";
             // 
             // tabControl1
             // 
@@ -233,11 +248,20 @@
             this.tabControl1.TabIndex = 16;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
+            // progressBar1
+            // 
+            this.progressBar1.Location = new System.Drawing.Point(-1, -1);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(409, 6);
+            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Marquee;
+            this.progressBar1.TabIndex = 18;
+            // 
             // FPeserta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(407, 330);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.tb_log);
             this.Controls.Add(this.tabControl1);
             this.MaximizeBox = false;
@@ -245,7 +269,6 @@
             this.Name = "FPeserta";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Peserta";
-            this.Load += new System.EventHandler(this.FPeserta_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
@@ -261,21 +284,24 @@
 
         private System.Windows.Forms.TextBox tb_log;
         private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.DateTimePicker dtp_jam;
-        private System.Windows.Forms.DateTimePicker dtp_tanggal;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox tb_deskripsi;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TextBox tb_cari;
-        private System.Windows.Forms.TextBox tb_event;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.ProgressBar progressBar1;
+        private System.Windows.Forms.TextBox tb_email;
+        private System.Windows.Forms.TextBox tb_phone;
+        private System.Windows.Forms.TextBox tb_wa;
+        private System.Windows.Forms.TextBox tb_kampus;
+        private System.Windows.Forms.TextBox tb_nama;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
