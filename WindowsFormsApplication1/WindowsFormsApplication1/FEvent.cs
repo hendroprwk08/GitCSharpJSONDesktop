@@ -107,8 +107,6 @@ namespace WindowsFormsApplication1
             {
                 Console.WriteLine(ex.Message);
             }
-
-            tabControl1.SelectedIndex = 0;
         }
 
         async void showGrid(string destination)
@@ -128,6 +126,10 @@ namespace WindowsFormsApplication1
                     String values = data["result"].ToString();
                     dt_event = (DataTable)JsonConvert.DeserializeObject(values, (typeof(DataTable)));
                 }
+
+                dataGridView1.Columns.Clear();
+
+                if (dt_event.Rows.Count == 0) return;
                 dataGridView1.DataSource = dt_event;
             }
             catch (HttpRequestException ex)
@@ -151,6 +153,8 @@ namespace WindowsFormsApplication1
                 {
                     var json = await httpClient.GetStringAsync(destination);
                     tb_log.Text = DateTime.Now.ToString() + " - " + json;
+
+                    showGrid("http://event-lcc.000webhostapp.com/event.php?action=4");
                 }
                 catch (HttpRequestException ex)
                 {
@@ -163,12 +167,9 @@ namespace WindowsFormsApplication1
             }
         }
 
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        private void FEvent_Load(object sender, EventArgs e)
         {
-            if (tabControl1.SelectedIndex == 1)
-            {
-                showGrid("http://event-lcc.000webhostapp.com/event.php?action=4");
-            }
+            showGrid("http://event-lcc.000webhostapp.com/event.php?action=4");
         }
 
     }

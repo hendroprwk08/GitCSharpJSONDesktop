@@ -87,6 +87,7 @@
             this.Name = "FMenu";
             this.Text = "Menu";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FMenu_FormClosing);
             this.Load += new System.EventHandler(this.FMenu_Load);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

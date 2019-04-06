@@ -27,9 +27,17 @@ namespace WindowsFormsApplication1
 
         private void toolStripButton3_Click(object sender, EventArgs e)
         {
-            FPengguna f = new FPengguna();
-            f.MdiParent = this;
-            f.Show();
+            if (Global.TYPE != "Admin")
+            {
+                MessageBox.Show("Not allowed");
+            }
+            else 
+            {
+                FPengguna f = new FPengguna();
+                f.MdiParent = this;
+                f.Show();
+            }
+            
         }
 
         private void toolStripButton2_Click(object sender, EventArgs e)
@@ -42,6 +50,11 @@ namespace WindowsFormsApplication1
         private void FMenu_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void FMenu_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

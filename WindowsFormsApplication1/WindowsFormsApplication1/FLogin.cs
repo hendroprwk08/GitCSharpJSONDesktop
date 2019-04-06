@@ -47,7 +47,7 @@ namespace WindowsFormsApplication1
                     DataTable dt = new DataTable();
                     dt = (DataTable)JsonConvert.DeserializeObject(values, (typeof(DataTable)));
 
-                    if (dt.Rows[0][0].ToString().Equals("0"))
+                    if (dt.Rows[0][0].ToString().Equals(""))
                     {
                         MessageBox.Show("No data found",
                                         "Warning",
@@ -56,6 +56,9 @@ namespace WindowsFormsApplication1
                     }
                     else 
                     {
+                        Global.ACTIVE = dt.Rows[0][2].ToString();
+                        Global.TYPE = dt.Rows[0][3].ToString();
+
                         FMenu f = new FMenu();
                         f.Show();
 
@@ -72,6 +75,12 @@ namespace WindowsFormsApplication1
                     progressBar1.Visible = false;
                 }
             }
+        }
+
+        private void linkLabel2_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            FRegist f = new FRegist();
+            f.ShowDialog(); 
         }
     }
 }

@@ -23,82 +23,59 @@ namespace WindowsFormsApplication1
         public FPeserta()
         {
             InitializeComponent();
-            title = this.Text;
-            progressBar1.Visible = false;
-        }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabControl1.SelectedIndex == 1)
-            {
-                showGrid("http://event-lcc.000webhostapp.com/peserta.php?action=4");
-            }
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            tb_nama.Text = "";
-            tb_kampus.Text = "";
-            tb_wa.Text = "";
-            tb_phone.Text = "";
-            tb_email.Text = "";
-            id = 0;
-        }
-
-        private void button3_Click(object sender, EventArgs e)
-        {
-            if (id > 0) //update
-            {
-                post("http://event-lcc.000webhostapp.com/peserta.php?action=2" +
-                        "&id=" + id +
-                         "&nama=" + HttpUtility.UrlEncode(tb_nama.Text) +
-                         "&kampus=" + HttpUtility.UrlEncode(tb_kampus.Text) +
-                         "&wa=" + HttpUtility.UrlEncode(tb_wa.Text) +
-                         "&phone=" + HttpUtility.UrlEncode(tb_phone.Text) +
-                         "&email=" + HttpUtility.UrlEncode(tb_email.Text) );
-            }
-            else
-            { //save
-                post("http://event-lcc.000webhostapp.com/peserta.php?action=1" +
-                         "&nama=" + HttpUtility.UrlEncode(tb_nama.Text) +
-                         "&kampus=" + HttpUtility.UrlEncode(tb_kampus.Text) +
-                         "&wa=" + HttpUtility.UrlEncode(tb_wa.Text) +
-                         "&phone=" + HttpUtility.UrlEncode(tb_phone.Text) +
-                         "&email=" + HttpUtility.UrlEncode(tb_email.Text) );
-            }
-
-            button1_Click(null, null);
         }
 
         async void showGrid(string destination)
         {
             dt_peserta = new DataTable();
+            tblog.Text = DateTime.Now.ToString() + " - " + destination;
             progressBar1.Visible = true;
-            tb_log.Text = DateTime.Now.ToString() + " - " + destination;
 
             try
             {
                 using (var httpClient = new HttpClient())
                 {
                     var json = await httpClient.GetStringAsync(destination);
-                    tb_log.Text = DateTime.Now.ToString() + " - " + json;
+                    tblog.Text = DateTime.Now.ToString() + " - " + json;
 
                     JObject data = JObject.Parse(json);
                     String values = data["result"].ToString();
                     dt_peserta = (DataTable)JsonConvert.DeserializeObject(values, (typeof(DataTable)));
                 }
-                dataGridView1.DataSource = dt_peserta;
+
+                dataGridView2.Columns.Clear();
+
+                if (dt_peserta.Rows.Count == 0) return;
+                dataGridView2.DataSource = dt_peserta;
+
+                DataGridViewButtonColumn btnSave = new DataGridViewButtonColumn();
+                dataGridView2.Columns.Add(btnSave);
+                btnSave.Text = "Save";
+                btnSave.UseColumnTextForButtonValue = true;
+
+                DataGridViewButtonColumn btnDelete = new DataGridViewButtonColumn();
+                dataGridView2.Columns.Add(btnDelete);
+                btnDelete.Text = "Delete";
+                btnDelete.UseColumnTextForButtonValue = true;
+
+                dataGridView2.Columns[0].ReadOnly = true;
+                dataGridView2.Columns[6].ReadOnly = true;
+
+                dataGridView2.Columns[0].DefaultCellStyle.BackColor = Color.Aquamarine;
+                dataGridView2.Columns[6].DefaultCellStyle.BackColor = Color.Aquamarine;
+
+                dataGridView2.Columns[0].Width = 50; //id
+                dataGridView2.Columns[7].Width = 50; //save
+                dataGridView2.Columns[8].Width = 60; //delete
+
+                dataGridView2.AllowUserToAddRows = false;
+
             }
             catch (HttpRequestException ex)
             {
-                tb_log.Text = DateTime.Now.ToString() + " - Error: " + Environment.NewLine + ex.ToString();
+                tblog.Text = DateTime.Now.ToString() + " - Error: " + Environment.NewLine + ex.ToString();
             }
-            finally
+            finally 
             {
                 progressBar1.Visible = false;
             }
@@ -106,73 +83,143 @@ namespace WindowsFormsApplication1
 
         async void post(string destination)
         {
+            tblog.Text = DateTime.Now.ToString() + " - " + destination;
             progressBar1.Visible = true;
-            tb_log.Text = DateTime.Now.ToString() + " - " + destination;
 
             using (var httpClient = new HttpClient())
             {
                 try
                 {
                     var json = await httpClient.GetStringAsync(destination);
-                    tb_log.Text = DateTime.Now.ToString() + " - " + json;
+                    tblog.Text = DateTime.Now.ToString() + " - " + json;
+                    showGrid("http://event-lcc.000webhostapp.com/peserta.php?action=4");
                 }
                 catch (HttpRequestException ex)
                 {
-                    tb_log.Text = DateTime.Now.ToString() + " - Error: " + Environment.NewLine + ex.ToString();
+                    tblog.Text = DateTime.Now.ToString() + " - Error: " + Environment.NewLine + ex.ToString();
                 }
-                finally
+                finally 
                 {
                     progressBar1.Visible = false;
                 }
             }
         }
-
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+      
+        private void FPeserta_Load(object sender, EventArgs e)
         {
-            int i = dataGridView1.CurrentRow.Index;
-
-            try
-            {
-                id = Int32.Parse(dataGridView1.Rows[i].Cells[0].Value.ToString());
-                tb_nama.Text = dataGridView1.Rows[i].Cells[1].Value.ToString();
-                tb_kampus.Text = dataGridView1.Rows[i].Cells[2].Value.ToString();
-                tb_wa.Text = dataGridView1.Rows[i].Cells[3].Value.ToString();
-                tb_phone.Text = dataGridView1.Rows[i].Cells[4].Value.ToString();
-                tb_email.Text = dataGridView1.Rows[i].Cells[5].Value.ToString(); 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            tabControl1.SelectedIndex = 0;
+            showGrid("http://event-lcc.000webhostapp.com/peserta.php?action=4");
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click_1(object sender, EventArgs e)
         {
-            if (id > 0)
+            if (dataGridView2.RowCount == 0)
             {
-                DialogResult res = MessageBox.Show("Hapus " + tb_nama.Text + "?",
+                dataGridView2.Columns.Clear();
+                dataGridView2.DataSource = null;
+
+                dataGridView2.ColumnCount = 7;
+                dataGridView2.Columns[0].Name = "ID";
+                dataGridView2.Columns[1].Name = "NAMA";
+                dataGridView2.Columns[2].Name = "KAMPUS";
+                dataGridView2.Columns[3].Name = "WHATSAPP";
+                dataGridView2.Columns[4].Name = "PHONE";
+                dataGridView2.Columns[5].Name = "EMAIL";
+                dataGridView2.Columns[6].Name = "INPUT";
+
+                //DataGridViewTextBoxColumn tbUsername = new DataGridViewTextBoxColumn();
+                //dataGridView2.Columns.Add(tbUsername);
+                //tbUsername.HeaderText = "ID";
+
+                //DataGridViewTextBoxColumn tbEmail = new DataGridViewTextBoxColumn();
+                //dataGridView2.Columns.Add(tbEmail);
+                //tbEmail.HeaderText = "email";
+
+                //DataGridViewTextBoxColumn tbPhone = new DataGridViewTextBoxColumn();
+                //dataGridView2.Columns.Add(tbPhone);
+                //tbPhone.HeaderText = "phone";
+
+                DataGridViewButtonColumn btnSave = new DataGridViewButtonColumn();
+                dataGridView2.Columns.Add(btnSave);
+                btnSave.Text = "Save";
+                btnSave.UseColumnTextForButtonValue = true;
+
+                DataGridViewButtonColumn btnDelete = new DataGridViewButtonColumn();
+                dataGridView2.Columns.Add(btnDelete);
+                btnDelete.Text = "Delete";
+                btnDelete.UseColumnTextForButtonValue = true;
+
+                dataGridView2.AllowUserToAddRows = true;
+
+                dataGridView2.Columns[0].ReadOnly = true;
+                dataGridView2.Columns[6].ReadOnly = true;
+
+                dataGridView2.Columns[0].Width = 50; //save
+                dataGridView2.Columns[7].Width = 50; //save
+                dataGridView2.Columns[8].Width = 60; //delete
+            }
+            else
+            {
+                dataGridView2.AllowUserToAddRows = true;
+            }
+        }
+
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int jumlah = dataGridView2.Rows.Count;
+            int i = dataGridView2.CurrentRow.Index;
+
+            if (e.ColumnIndex == 7)  //simpan
+            {
+                dataGridView2.Enabled = false;
+
+                if (e.RowIndex != dataGridView2.NewRowIndex)
+                { //save
+                    if (dataGridView2.NewRowIndex == -1)
+                    {
+                        post("http://event-lcc.000webhostapp.com/peserta.php?action=2" +
+                                "&id=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[0].Value.ToString()) +
+                                "&nama=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[1].Value.ToString()) +
+                                "&kampus=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[2].Value.ToString()) +
+                                "&wa=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[3].Value.ToString()) +
+                                "&phone=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[4].Value.ToString()) +
+                                "&email=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[5].Value.ToString()));
+                    }
+                    else
+                    {
+                        post("http://event-lcc.000webhostapp.com/peserta.php?action=1" +
+                                "&nama=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[1].Value.ToString()) +
+                                "&kampus=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[2].Value.ToString()) +
+                                "&wa=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[3].Value.ToString()) +
+                                "&phone=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[4].Value.ToString()) +
+                                "&email=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[5].Value.ToString()));
+                    }
+
+                }
+
+                dataGridView2.Enabled = true;
+
+            }
+            else if (e.ColumnIndex == 8)  //hapus
+            {
+                DialogResult res = MessageBox.Show("Hapus " + dataGridView2.Rows[i].Cells[1].Value.ToString() + "?",
                                                     "Perhatian",
                                                     MessageBoxButtons.OKCancel,
                                                     MessageBoxIcon.Information);
 
                 if (res == DialogResult.OK)
                 {
-                    post("http://event-lcc.000webhostapp.com/peserta.php?action=3&id=" + id);
+                    post("http://event-lcc.000webhostapp.com/peserta.php?action=3&id=" + dataGridView2.Rows[i].Cells[0].Value.ToString());                    
                 }
                 else if (res == DialogResult.Cancel)
                 {
-                    MessageBox.Show("Penghapusan data " + tb_nama.Text + " dibatalkan");
+                    MessageBox.Show("Penghapusan data " + dataGridView2.Rows[i].Cells[0].Value.ToString() + " dibatalkan");
                 }
             }
-
-            button1_Click(null, null);
         }
 
-        private void FPeserta_Load(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-
+            showGrid("http://event-lcc.000webhostapp.com/peserta.php?action=5&find=" + textBox3.Text);
         }
     }
 }

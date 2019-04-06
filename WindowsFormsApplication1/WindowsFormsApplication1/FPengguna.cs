@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Web;
 
 namespace WindowsFormsApplication1
 {
@@ -25,179 +26,237 @@ namespace WindowsFormsApplication1
         {
             InitializeComponent();
             title = this.Text;
-            progressBar1.Visible = false;
         }
 
         async void showGrid(string destination){
             dt_pengguna = new DataTable();
-            progressBar1.Visible = true;
-            tb_log.Text = DateTime.Now.ToString() + " - " + destination;
+            progressBar2.Visible = true;
+
+            tblog.Text = DateTime.Now.ToString() + " - " + destination;
 
             try
             {                
                 using (var httpClient = new HttpClient())
                 {
                     var json = await httpClient.GetStringAsync(destination);
-                    tb_log.Text = DateTime.Now.ToString() + " - " + json;
+                    tblog.Text = DateTime.Now.ToString() + " - " + json;
 
                     JObject data = JObject.Parse(json);
                     String values = data["result"].ToString();
                     dt_pengguna = (DataTable)JsonConvert.DeserializeObject(values, (typeof(DataTable)));
                 }
-                dataGridView1.DataSource = dt_pengguna;
+
+                dataGridView2.Columns.Clear();
+
+                if (dt_pengguna.Rows.Count == 0) return;
+                dataGridView2.DataSource = dt_pengguna;
+                
+                DataGridViewButtonColumn btnSave = new DataGridViewButtonColumn();
+                dataGridView2.Columns.Add(btnSave);
+                btnSave.Text = "Save";
+                btnSave.UseColumnTextForButtonValue = true;
+                
+                DataGridViewButtonColumn btnDelete = new DataGridViewButtonColumn();
+                dataGridView2.Columns.Add(btnDelete);
+                btnDelete.Text = "Delete";
+                btnDelete.UseColumnTextForButtonValue = true;
+
+                dataGridView2.Columns[0].ReadOnly = true;
+
+                dataGridView2.Columns[5].Width = 50; //save
+                dataGridView2.Columns[6].Width = 60; //delete
+
+                //remove column
+                dataGridView2.Columns.RemoveAt(3); //remove active
+                dataGridView2.Columns.RemoveAt(3); //remove type
+                
+                //set combo box
+                DataGridViewComboBoxColumn cbActive = new DataGridViewComboBoxColumn();
+                cbActive.Items.Add("Yes");
+                cbActive.Items.Add("No");
+                cbActive.Name = "ACTIVE";
+                dataGridView2.Columns.Insert(3, cbActive);
+
+                DataGridViewComboBoxColumn cbType = new DataGridViewComboBoxColumn();
+                cbType.Items.Add("Admin");
+                cbType.Items.Add("User");
+                cbType.Name = "TYPE";
+                dataGridView2.Columns.Insert(4, cbType);
+
+                //set selected value DataGridViewComboBoxColumn
+                for (int i = 0; i < dt_pengguna.Rows.Count; i++)
+                {
+                    Console.WriteLine(dataGridView2.Rows[i].Cells[4].Value + " - " + dt_pengguna.Rows[i][3].ToString());
+                    dataGridView2.Rows[i].Cells[3].Value = dt_pengguna.Rows[i][3].ToString();
+                    dataGridView2.Rows[i].Cells[4].Value = dt_pengguna.Rows[i][4].ToString();
+                }
+                
             }
             catch (HttpRequestException ex)
             {
-                tb_log.Text = DateTime.Now.ToString() + " - Error: " + Environment.NewLine + ex.ToString();
+                tblog.Text = DateTime.Now.ToString() + " - Error: " + Environment.NewLine + ex.ToString();
             }
             finally 
             {
-                progressBar1.Visible = false;
+                progressBar2.Visible = false;
+                dataGridView2.AllowUserToAddRows = false;
             }
         }
 
         async void post(string destination)
         {
-            progressBar1.Visible = true;
-            tb_log.Text = DateTime.Now.ToString() + " - " + destination;
+            progressBar2.Visible = true;
+            tblog.Text = DateTime.Now.ToString() + " - " + destination;
 
             using (var httpClient = new HttpClient())
             {
                 try
                 {
                     var json = await httpClient.GetStringAsync(destination);
-                    tb_log.Text = DateTime.Now.ToString() + " - " + json;
+                    tblog.Text = DateTime.Now.ToString() + " - " + json;
+                    FPengguna_Load(null, null);
                 }
                 catch (HttpRequestException ex)
                 {
-                    tb_log.Text = DateTime.Now.ToString() + " - Error: " + Environment.NewLine + ex.ToString();
+                    tblog.Text = DateTime.Now.ToString() + " - Error: " + Environment.NewLine + ex.ToString();
                 }
                 finally
                 {
-                    progressBar1.Visible = false;
+                    progressBar2.Visible = false;
                 }           
             }
 
         }
 
-        void button4_Click(object sender, EventArgs e)
+        private void FPengguna_Load(object sender, EventArgs e)
         {
-            showGrid("http://event-lcc.000webhostapp.com/pengguna.php?action=5&find="+ tb_cari.Text);
+            showGrid("http://event-lcc.000webhostapp.com/pengguna.php?action=4");   
         }
 
-        void button3_Click(object sender, EventArgs e)
+        private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (tb_password.Text != tb_retype.Text) {
-                MessageBox.Show("Password is not match");
-                return;
-            }
+            int jumlah = dataGridView2.Rows.Count;
+            int i = dataGridView2.CurrentRow.Index;
 
-            if (tb_username.TextLength == 0 && tb_password.TextLength == 0 && tb_retype.TextLength == 0) {
-                MessageBox.Show("Data is not complete");
-                return;
-            }
-
-            this.Text = "Saving: " + tb_username.Text;
-
-            if (tb_username.ReadOnly == true) //update
+            if (e.ColumnIndex == 5)  //simpan
             {
-                if (tb_password.Text == "[private]")
-                {
-                    post("http://event-lcc.000webhostapp.com/pengguna.php?action=2&username=" + tb_username.Text +
-                            "&password=&email=" + tb_email.Text +
-                            "&phone=" + tb_phone.Text);
+                dataGridView2.Enabled = false;
+
+                if (e.RowIndex != dataGridView2.NewRowIndex)
+                { //save
+                    if (dataGridView2.NewRowIndex == -1)
+                    {
+                        String password = Microsoft.VisualBasic.Interaction.InputBox("Password: " + Environment.NewLine + "Don`t type any character if you won`t change your password", "Caution", "[private]");
+
+                        if (password == "[private]")
+                        {
+                            post("http://event-lcc.000webhostapp.com/pengguna.php?action=2" +
+                               "&username=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[0].Value.ToString()) +
+                               "&password=" +
+                               "&email=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[1].Value.ToString()) +
+                               "&phone=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[2].Value.ToString()) +
+                               "&active=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[3].Value.ToString()) +
+                               "&type=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[4].Value.ToString()));
+                        }
+                        else
+                        {
+                            post("http://event-lcc.000webhostapp.com/pengguna.php?action=2" +
+                               "&username=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[0].Value.ToString()) +
+                               "&password=" + HttpUtility.UrlEncode(password) +
+                               "&email=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[1].Value.ToString()) +
+                               "&phone=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[2].Value.ToString()) +
+                               "&active=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[3].Value.ToString()) +
+                               "&type=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[4].Value.ToString()));
+                        }
+                    }
+                    else 
+                    {
+                        String password = Microsoft.VisualBasic.Interaction.InputBox("Password", "Caution", "");
+
+                        post("http://event-lcc.000webhostapp.com/pengguna.php?action=1" +
+                               "&username=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[0].Value.ToString()) +
+                               "&password=" + HttpUtility.UrlEncode(password) +
+                               "&email=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[1].Value.ToString()) +
+                               "&phone=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[2].Value.ToString()) +
+                               "&active=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[3].Value.ToString()) +
+                               "&type=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[4].Value.ToString()));
+                    }
+                   
                 }
-                else    
-                {
-                    post("http://event-lcc.000webhostapp.com/pengguna.php?action=2&username=" + tb_username.Text +
-                            "&password=" + tb_password.Text +
-                            "&email=" + tb_email.Text +
-                            "&phone=" + tb_phone.Text);
-                }
-            }else if(tb_username.ReadOnly == false){ //save
-                post("http://event-lcc.000webhostapp.com/pengguna.php?action=1&username=" + tb_username.Text + 
-                        "&password=" + tb_password.Text  + 
-                        "&email=" + tb_email.Text +
-                        "&phone=" + tb_phone.Text);                          
+
+                dataGridView2.Enabled = true;
             }
-
-            button1_Click(null, null);
-        }
-
-        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            int i = dataGridView1.CurrentRow.Index;
-
-            try
+            else if(e.ColumnIndex == 6)  //hapus
             {
-                tb_username.Text = dataGridView1.Rows[i].Cells[0].Value.ToString();
-                tb_username.ReadOnly = true;
-                tb_password.Text = "[private]"; tb_password.ReadOnly = true;
-                tb_retype.Text = "[private]"; tb_retype.ReadOnly = true;
-                tb_email.Text = dataGridView1.Rows[i].Cells[1].Value.ToString();
-                tb_phone.Text = dataGridView1.Rows[i].Cells[2].Value.ToString();
-                bt_change.Visible = true; 
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            tabControl1.SelectedIndex = 0;
-        }
-
-        async void button2_Click(object sender, EventArgs e)
-        {
-            if (tb_username.ReadOnly == true)
-            {
-                DialogResult res = MessageBox.Show("Hapus " + tb_username.Text + "?", 
-                                                    "Perhatian", 
-                                                    MessageBoxButtons.OKCancel, 
+                DialogResult res = MessageBox.Show("Hapus " + dataGridView2.Rows[i].Cells[0].Value.ToString() + "?",
+                                                    "Perhatian",
+                                                    MessageBoxButtons.OKCancel,
                                                     MessageBoxIcon.Information);
 
                 if (res == DialogResult.OK)
                 {
-                    post("http://event-lcc.000webhostapp.com/pengguna.php?action=3&username=" + tb_username.Text);
+                    post("http://event-lcc.000webhostapp.com/pengguna.php?action=3&username=" + dataGridView2.Rows[i].Cells[0].Value.ToString());
                 }
                 else if (res == DialogResult.Cancel)
                 {
-                    MessageBox.Show("Penghapusan data " + tb_username.Text + " dibatalkan");
+                    MessageBox.Show("Penghapusan data " + dataGridView2.Rows[i].Cells[0].Value.ToString() + " dibatalkan");
                 }
-            }
+            }          
+        }
 
-            button1_Click(null, null);
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (dataGridView2.RowCount == 0)
+            {
+                dataGridView2.DataSource = null;
+                dataGridView2.ColumnCount = 3;
+                dataGridView2.Columns[0].Name = "USERNAME";
+                dataGridView2.Columns[1].Name = "EMAIL";
+                dataGridView2.Columns[2].Name = "PHONE";
+
+                DataGridViewComboBoxColumn cbActive = new DataGridViewComboBoxColumn();
+                cbActive.Items.Add("Yes");
+                cbActive.Items.Add("No");
+                cbActive.Name = "ACTIVE";
+                dataGridView2.Columns.Insert(3, cbActive);
+
+                DataGridViewComboBoxColumn cbType = new DataGridViewComboBoxColumn();
+                cbType.Items.Add("Admin");
+                cbType.Items.Add("User");
+                cbType.Name = "TYPE";
+                dataGridView2.Columns.Insert(4, cbType);
+
+                DataGridViewButtonColumn btnSave = new DataGridViewButtonColumn();
+                dataGridView2.Columns.Add(btnSave);
+                btnSave.Text = "Save";
+                btnSave.UseColumnTextForButtonValue = true;
+
+                DataGridViewButtonColumn btnDelete = new DataGridViewButtonColumn();
+                dataGridView2.Columns.Add(btnDelete);
+                btnDelete.Text = "Delete";
+                btnDelete.UseColumnTextForButtonValue = true;
+
+                dataGridView2.AllowUserToAddRows = true;
+                dataGridView2.Columns[0].ReadOnly = false;
+
+                dataGridView2.Columns[5].Width = 50; //save
+                dataGridView2.Columns[6].Width = 60; //delete
+            }
+            else
+            {
+                dataGridView2.AllowUserToAddRows = true;
+                dataGridView2.Columns[0].ReadOnly = false;
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            FPengguna_Load(null, null);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            tb_username.Text = null; tb_username.ReadOnly = false;
-            tb_password.Text = null; tb_password.ReadOnly = false;
-            tb_retype.Text = null; tb_retype.ReadOnly = false;
-            tb_email.Text = null;
-            tb_phone.Text = null;
-            bt_change.Text = "Change"; bt_change.Visible = false;
-        }
-
-        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (tabControl1.SelectedIndex == 1) {
-                showGrid("http://event-lcc.000webhostapp.com/pengguna.php?action=4");       
-            }
-        }
-
-        private void button5_Click(object sender, EventArgs e)
-        {
-            if (bt_change.Text == "Cancel")
-            {
-                tb_password.Text = "[private]"; tb_password.ReadOnly = true;
-                tb_retype.Text = "[private]"; tb_retype.ReadOnly = true;
-                bt_change.Text = "Change";
-            }
-            else {
-                tb_password.Text = null; tb_password.ReadOnly = false;
-                tb_retype.Text = null; tb_retype.ReadOnly = false;
-                bt_change.Text = "Cancel";
-            }
-        }                       
+            showGrid("http://event-lcc.000webhostapp.com/pengguna.php?action=5&find=" + textBox3.Text);
+        }             
     }
 }
