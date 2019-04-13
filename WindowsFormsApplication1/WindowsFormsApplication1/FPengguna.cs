@@ -130,7 +130,7 @@ namespace WindowsFormsApplication1
 
         private void FPengguna_Load(object sender, EventArgs e)
         {
-            showGrid("http://event-lcc.000webhostapp.com/pengguna.php?action=4");   
+            showGrid("http://event-lcc-me.000webhostapp.com/pengguna.php?action=4");   
         }
 
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -150,7 +150,7 @@ namespace WindowsFormsApplication1
 
                         if (password == "[private]")
                         {
-                            post("http://event-lcc.000webhostapp.com/pengguna.php?action=2" +
+                            post("http://event-lcc-me.000webhostapp.com/pengguna.php?action=2" +
                                "&username=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[0].Value.ToString()) +
                                "&password=" +
                                "&email=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[1].Value.ToString()) +
@@ -160,7 +160,7 @@ namespace WindowsFormsApplication1
                         }
                         else
                         {
-                            post("http://event-lcc.000webhostapp.com/pengguna.php?action=2" +
+                            post("http://event-lcc-me.000webhostapp.com/pengguna.php?action=2" +
                                "&username=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[0].Value.ToString()) +
                                "&password=" + HttpUtility.UrlEncode(password) +
                                "&email=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[1].Value.ToString()) +
@@ -173,7 +173,7 @@ namespace WindowsFormsApplication1
                     {
                         String password = Microsoft.VisualBasic.Interaction.InputBox("Password", "Caution", "");
 
-                        post("http://event-lcc.000webhostapp.com/pengguna.php?action=1" +
+                        post("http://event-lcc-me.000webhostapp.com/pengguna.php?action=1" +
                                "&username=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[0].Value.ToString()) +
                                "&password=" + HttpUtility.UrlEncode(password) +
                                "&email=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[1].Value.ToString()) +
@@ -195,7 +195,7 @@ namespace WindowsFormsApplication1
 
                 if (res == DialogResult.OK)
                 {
-                    post("http://event-lcc.000webhostapp.com/pengguna.php?action=3&username=" + dataGridView2.Rows[i].Cells[0].Value.ToString());
+                    post("http://event-lcc-me.000webhostapp.com/pengguna.php?action=3&username=" + dataGridView2.Rows[i].Cells[0].Value.ToString());
                 }
                 else if (res == DialogResult.Cancel)
                 {
@@ -256,7 +256,7 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            showGrid("http://event-lcc.000webhostapp.com/pengguna.php?action=5&find=" + textBox3.Text);
+            showGrid("http://event-lcc-me.000webhostapp.com/pengguna.php?action=5&find=" + textBox3.Text);
         }             
     }
 }

@@ -24,7 +24,7 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            post("http://event-lcc.000webhostapp.com/log_in.php?action=1" +
+            post("http://event-lcc-me.000webhostapp.com/log_in.php?action=1" +
                         "&us=" + HttpUtility.UrlEncode(textBox1.Text) +
                          "&pa=" + HttpUtility.UrlEncode(textBox2.Text));
         }

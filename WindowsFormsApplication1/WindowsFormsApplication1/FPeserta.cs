@@ -92,7 +92,7 @@ namespace WindowsFormsApplication1
                 {
                     var json = await httpClient.GetStringAsync(destination);
                     tblog.Text = DateTime.Now.ToString() + " - " + json;
-                    showGrid("http://event-lcc.000webhostapp.com/peserta.php?action=4");
+                    showGrid("https://event-lcc-me.000webhostapp.com/peserta.php?action=4");
                 }
                 catch (HttpRequestException ex)
                 {
@@ -107,7 +107,7 @@ namespace WindowsFormsApplication1
       
         private void FPeserta_Load(object sender, EventArgs e)
         {
-            showGrid("http://event-lcc.000webhostapp.com/peserta.php?action=4");
+            showGrid("https://event-lcc-me.000webhostapp.com/peserta.php?action=4");
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -119,8 +119,8 @@ namespace WindowsFormsApplication1
 
                 dataGridView2.ColumnCount = 7;
                 dataGridView2.Columns[0].Name = "ID";
-                dataGridView2.Columns[1].Name = "NAMA";
-                dataGridView2.Columns[2].Name = "KAMPUS";
+                dataGridView2.Columns[1].Name = "NAME";
+                dataGridView2.Columns[2].Name = "INSTITUTION";
                 dataGridView2.Columns[3].Name = "WHATSAPP";
                 dataGridView2.Columns[4].Name = "PHONE";
                 dataGridView2.Columns[5].Name = "EMAIL";
@@ -176,7 +176,7 @@ namespace WindowsFormsApplication1
                 { //save
                     if (dataGridView2.NewRowIndex == -1)
                     {
-                        post("http://event-lcc.000webhostapp.com/peserta.php?action=2" +
+                        post("https://event-lcc-me.000webhostapp.com/peserta.php?action=2" +
                                 "&id=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[0].Value.ToString()) +
                                 "&nama=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[1].Value.ToString()) +
                                 "&kampus=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[2].Value.ToString()) +
@@ -186,7 +186,7 @@ namespace WindowsFormsApplication1
                     }
                     else
                     {
-                        post("http://event-lcc.000webhostapp.com/peserta.php?action=1" +
+                        post("https://event-lcc-me.000webhostapp.com/peserta.php?action=1" +
                                 "&nama=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[1].Value.ToString()) +
                                 "&kampus=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[2].Value.ToString()) +
                                 "&wa=" + HttpUtility.UrlEncode(dataGridView2.Rows[i].Cells[3].Value.ToString()) +
@@ -208,7 +208,7 @@ namespace WindowsFormsApplication1
 
                 if (res == DialogResult.OK)
                 {
-                    post("http://event-lcc.000webhostapp.com/peserta.php?action=3&id=" + dataGridView2.Rows[i].Cells[0].Value.ToString());                    
+                    post("http://event-lcc-me.000webhostapp.com/peserta.php?action=3&id=" + dataGridView2.Rows[i].Cells[0].Value.ToString());                    
                 }
                 else if (res == DialogResult.Cancel)
                 {
@@ -219,7 +219,7 @@ namespace WindowsFormsApplication1
 
         private void button1_Click(object sender, EventArgs e)
         {
-            showGrid("http://event-lcc.000webhostapp.com/peserta.php?action=5&find=" + textBox3.Text);
+            showGrid("http://event-lcc-me.000webhostapp.com/peserta.php?action=5&find=" + textBox3.Text);
         }
     }
 }

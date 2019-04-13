@@ -44,8 +44,8 @@ namespace WindowsFormsApplication1
             String jam = dtp_jam.Value.ToString("HH:mm");
 
             if (id > 0) //update
-            {               
-                post("http://event-lcc.000webhostapp.com/event.php?action=2" +
+            {
+                post("http://event-lcc-me.000webhostapp.com/event.php?action=2" +
                         "&id=" + id +
                         "&event=" + HttpUtility.UrlEncode(tb_event.Text) +
                         "&deskripsi=" + HttpUtility.UrlEncode(tb_deskripsi.Text) +
@@ -54,7 +54,7 @@ namespace WindowsFormsApplication1
             }
             else
             { //save
-                post("http://event-lcc.000webhostapp.com/event.php?action=1" +
+                post("http://event-lcc-me.000webhostapp.com/event.php?action=1" +
                          "&event=" + HttpUtility.UrlEncode(tb_event.Text) +
                          "&deskripsi=" + HttpUtility.UrlEncode(tb_deskripsi.Text) +
                          "&tgl=" + tgl +
@@ -75,7 +75,7 @@ namespace WindowsFormsApplication1
 
                 if (res == DialogResult.OK)
                 {
-                    post("http://event-lcc.000webhostapp.com/event.php?action=3&id=" + id);
+                    post("http://event-lcc-me.000webhostapp.com/event.php?action=3&id=" + id);
                 }
                 else if (res == DialogResult.Cancel)
                 {
@@ -88,7 +88,7 @@ namespace WindowsFormsApplication1
 
         private void button4_Click(object sender, EventArgs e)
         {
-            showGrid("http://event-lcc.000webhostapp.com/event.php?action=5&find=" + tb_cari.Text);
+            showGrid("http://event-lcc-me.000webhostapp.com/event.php?action=5&find=" + tb_cari.Text);
         }
 
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -154,7 +154,7 @@ namespace WindowsFormsApplication1
                     var json = await httpClient.GetStringAsync(destination);
                     tb_log.Text = DateTime.Now.ToString() + " - " + json;
 
-                    showGrid("http://event-lcc.000webhostapp.com/event.php?action=4");
+                    showGrid("http://event-lcc-me.000webhostapp.com/event.php?action=4");
                 }
                 catch (HttpRequestException ex)
                 {
@@ -169,7 +169,7 @@ namespace WindowsFormsApplication1
 
         private void FEvent_Load(object sender, EventArgs e)
         {
-            showGrid("http://event-lcc.000webhostapp.com/event.php?action=4");
+            showGrid("http://event-lcc-me.000webhostapp.com/event.php?action=4");
         }
 
     }
